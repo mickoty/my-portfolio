@@ -113,7 +113,7 @@ const projectHtml = `
                                     </li>
                                     <li>
                                         <button class="btn project-btn">
-                                        <a href="https://app.netlify.com/sites/koty-house">visit Project</a>
+                                        <a href="https://koty-house.netlify.app">visit Project</a>
                                         </button>
                                     </li>
                                 </ul>
