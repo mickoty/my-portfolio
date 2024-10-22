@@ -1,38 +1,31 @@
-'use strict'
+"use strict";
 const openNav = document.querySelector(".icon-btn");
 const navBar = document.querySelector(".app-nav-co");
 const closeNav = document.querySelector(".times");
 const banner = document.querySelector(".banner-header");
-const navLinks = document.querySelector('.link')
-console.log(openNav)
+const navLinks = document.querySelector(".link");
+console.log(openNav);
 console.log(navLinks);
 
 const openBar = function () {
- 
-      navBar.classList.remove("close");
-      document.querySelector(".bar").classList.add("hidde");
-      closeNav.classList.remove("hidde");
-    ;
-}
+  navBar.classList.remove("close");
+  document.querySelector(".bar").classList.add("hidde");
+  closeNav.classList.remove("hidde");
+};
 
 const closeBar = function () {
-
-      navBar.classList.add("close");
-      document.querySelector(".bar").classList.remove("hidde");
-      closeNav.classList.add("hidde");
-    ;
-}
-closeNav.addEventListener("click", closeBar)
-openNav.addEventListener("click", openBar)
-
-
-
+  navBar.classList.add("close");
+  document.querySelector(".bar").classList.remove("hidde");
+  closeNav.classList.add("hidde");
+};
+closeNav.addEventListener("click", closeBar);
+openNav.addEventListener("click", openBar);
 
 // html insertig
 const insertH = function (b, html) {
   b.innerHTML = " ";
-  b.insertAdjacentHTML(`beforeend`, html)
- }
+  b.insertAdjacentHTML(`beforeend`, html);
+};
 
 const homeHtml = `
     <div class="banner section-center" >
@@ -77,7 +70,7 @@ const aboutHtml = `
             <h1> education </h1>
             <div class="edu">
                 <h3> bachelor of Science in Political Science</h3>
-            <p class="text-p" >2016-2023| Ekiti State University </p>
+            <p class="text-p" >2017-2023| Ekiti State University </p>
             <p> Relevant courses includes: public Administration, Comparative Politics, International Relations, Local Goverment</p>
             </div>
             <div class="edu">
@@ -89,9 +82,9 @@ const aboutHtml = `
 
         </div>
      </div>
-`;
-const projectHtml = `
-       <div class="head" >
+ `;
+const projectHtml = `    
+<div class="head" >
       <div class="project section-center">
                     <div class="project-header">
                         <h1> imagiation trump knowledge!</h1>
@@ -103,7 +96,7 @@ const projectHtml = `
 
                 </div>
                 <div class="project-info">
-               <h2>Featured Project</h2>
+                  <h2>Featured Project</h2> 
                                 <h3>House Sales Application</h3>
                                 <p>A Feature-rich E-commance house selling App using HTML,CSS and JavaScript. </p>
                                
@@ -119,33 +112,115 @@ const projectHtml = `
                                 </ul>
                 </div>
                   
-        </div>   
-                   
+             </div>
+             
+                     <div class="project-user">       
+                <div class="project_co">
+                    <img src="./images/pexels-tomáš-malík-2581922.jpg" class="project-ph" alt="" srcset="">
+
+                </div>
+                <div class="project-info">
+                  <h2>Featured Project</h2> 
+                                <h3>House Sales Application</h3>
+                                <p>A Feature-rich E-commance house selling App using HTML,CSS and JavaScript. </p>
+                               
+                                <ul class="project-li" > 
+                                    <li class="project-li_ico" >
+                                        <a href="https://github.com/mickoty/housing.git"><i class="fa-brands fa-github"></i> </a>
+                                    </li>
+                                    <li>
+                                        <button class="btn project-btn">
+                                        <a href="https://koty-house.netlify.app">visit Project</a>
+                                        </button>
+                                    </li>
+                                </ul>
+                </div>
+                  
+             </div>
        </div>
-    </div>
+ </div>
 
 `;
 
+// navLinks.addEventListener("click", function (el) {
+//   el.preventDefault();
+//   const elHref = el.target.getAttribute("href");
+//     const newUrl = `/my-portfolio${elHref}`;
+
+//     // Update the URL without reloading the page
+//     history.pushState(null, "", newUrl);
+//   if (elHref === "/index.html") {
+//     insertH(banner, homeHtml);
+//     closeBar();
+//   }
+//   if (elHref === "/about.html") {
+//     insertH(banner, aboutHtml);
+//     closeBar();
+//   }
+//   if (elHref === "/projects") {
+//     insertH(banner, projectHtml);
+//     closeBar();
+//   }
+
+//   console.log(elHref);
+// });
 navLinks.addEventListener("click", function (el) {
   el.preventDefault();
   const elHref = el.target.getAttribute("href");
 
+  // Prepend '/my-portfolio' to the elHref
+  const newUrl = `/my-portfolio${elHref}`;
 
+  // Update the URL without reloading the page
+  history.pushState(null, "", newUrl);
 
-    if (elHref === "/index.html") {
-      insertH(banner, homeHtml);
-      closeBar();
-    }
-    if (elHref === "./about.html") {
-     insertH(banner, aboutHtml);
-        closeBar();
-    }
-    if (elHref === "./projects") {
-      insertH(banner, projectHtml);
-      closeBar();
-    }
-
-  console.log(elHref);
+  // Load the corresponding content
+  loadContent(elHref);
 });
 
+window.addEventListener("popstate", function (event) {
+  // On back button press, reload the current content
+  const currentUrl = window.location.pathname;
+  const elHref = currentUrl.replace("/my-portfolio", "");
+
+  loadContent(elHref);
+});
+
+function loadContent(elHref) {
+  if (elHref === "/index.html") {
+    insertH(banner, homeHtml);
+    closeBar();
+  }
+  if (elHref === "/about.html") {
+    insertH(banner, aboutHtml);
+    closeBar();
+  }
+  if (elHref === "/projects") {
+    insertH(banner, projectHtml);
+    closeBar();
+  }
+
+  console.log(elHref);
+}
+
+
 // document.querySelector(".app-nav-co").addEventListener("click", closeBar);
+const toggleTheme = document.getElementById("toggleTheme");
+const body = document.body;
+const icon = toggleTheme.querySelector("i");
+
+toggleTheme.addEventListener("click", function () {
+  if (body.classList.contains("light-mode")) {
+    body.classList.remove("light-mode");
+    body.classList.add("dark-mode");
+    icon.classList.remove("fa-sun");
+    icon.classList.add("fa-moon");
+    closeBar();
+  } else {
+    body.classList.remove("dark-mode");
+    body.classList.add("light-mode");
+    icon.classList.remove("fa-moon");
+    icon.classList.add("fa-sun");
+    closeBar();
+  }
+});
