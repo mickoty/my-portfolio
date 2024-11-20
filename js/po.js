@@ -169,8 +169,10 @@ navLinks.addEventListener("click", function (el) {
   const elHref = el.target.getAttribute("href");
 
   // Prepend '/my-portfolio' to the elHref
-  const newUrl = `/my-portfolio${elHref}`;
-
+  // const newUrl = `/my-portfolio${elHref}`;
+  const newUrl = `/my-portfolio${
+    elHref.startsWith("/") ? elHref : "/" + elHref
+  }`;
   // Update the URL without reloading the page
   history.pushState(null, "", newUrl);
 
@@ -202,7 +204,6 @@ function loadContent(elHref) {
 
   console.log(elHref);
 }
-
 
 // document.querySelector(".app-nav-co").addEventListener("click", closeBar);
 const toggleTheme = document.getElementById("toggleTheme");
